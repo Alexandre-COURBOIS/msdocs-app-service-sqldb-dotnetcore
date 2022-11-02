@@ -24,6 +24,14 @@ resource "azurerm_mssql_server" "example" {
   administrator_login          = var.sql_administrator_login
   administrator_login_password = var.sql_administrator_password
 }
+
+resource "azurerm_mssql_firewall_rule" "example" {
+  name             = "AllowAzureServices"
+  server_id        = azurerm_mssql_server.example.id
+  start_ip_address = "0.0.0.0"
+  end_ip_address   = "0.0.0.0"
+}
+
 resource "azurerm_mssql_database" "example" {
   name           = "bdd"
   server_id      = azurerm_mssql_server.example.id
